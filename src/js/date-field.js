@@ -54,7 +54,7 @@ module.exports = require('ember-text-field').extend({
     },
     
     validateInputValue: function(inputValue) {
-        if (!Em.isEmpty(inputValue) && this.get('sameDateString') != inputValue) {
+        if (!Em.isEmpty(inputValue) && this.get('sameDateString') != inputValue && !(this.get('relative') && [t('date_field.yesterday'), t('date_field.today'), t('date_field.tomorrow')].contains(inputValue))) {
             var value = Billy.util.parseDate(inputValue);
             if (!value) {
                 throw new UserError(t('ui.fields.datefield.invalid_date'));
