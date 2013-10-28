@@ -29,13 +29,13 @@ module.exports = require('ember-text-field').extend({
         }
         if (this.get('relative')) {
             if (value.isSame(moment().subtract(1, 'day'), 'day')) {
-                return 'Yesterday';
+                return t('date_field.yesterday');
             }
             if (value.isSame(moment(), 'day')) {
-                return 'Today';
+                return t('date_field.today');
             }
             if (value.isSame(moment().add(1, 'day'), 'day')) {
-                return 'Tomorrow';
+                return t('date_field.tomorrow');
             }
         }
         var sameDate = this.get('sameDate');
