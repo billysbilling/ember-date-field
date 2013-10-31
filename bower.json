@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "homepage": "https://github.com/billysbilling/ember-date-field",
   "main": "src/js/date-field.js",
+  "billy-builder": {
+    "include": "src/locales"
+  },
   "license": "MIT",
   "ignore": [
     "**/.*",
@@ -13,6 +16,7 @@
   ],
   "dependencies": {
     "ember": "billysbilling/bower-ember#master",
-    "ember-text-field": "billysbilling/ember-text-field#master"
+    "ember-text-field": "billysbilling/ember-text-field#master",
+    "i18n": "billysbilling/i18n#master"
   }
 }

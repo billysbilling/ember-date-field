@@ -1,0 +1,7 @@
+{
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "yesterday": "Yesterday",
+    "invalid_date": "Invalid date.",
+    "same_date": "Same date"
+}
