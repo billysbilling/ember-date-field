@@ -15,8 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "ember": "billysbilling/bower-ember#master",
-    "ember-text-field": "billysbilling/ember-text-field#master",
-    "i18n": "billysbilling/i18n#master"
+    "ember-text-field": "billysbilling/ember-text-field#~1.0.0",
+    "i18n": "billysbilling/i18n#~1.0.0"
   }
 }
