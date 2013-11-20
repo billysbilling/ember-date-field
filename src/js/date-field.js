@@ -1,9 +1,12 @@
-var i18n = require('i18n').module('ember_date_field', require.resolve('../locales'));
+var i18n = require('i18n').module('ember_date_field', require.resolve('../locales')),
+    t = i18n.t;
 
 module.exports = require('ember-text-field').extend({
     autocomplete: 'off',
     
-    sameDateString: i18n.t('same_date'),
+    sameDateString: function() { 
+        return t('same_date');
+    }.property(),
     
     sameDate: null,
 
@@ -31,13 +34,13 @@ module.exports = require('ember-text-field').extend({
         }
         if (this.get('relative')) {
             if (value.isSame(moment().subtract(1, 'day'), 'day')) {
-                return i18n.t('yesterday');
+                return t('yesterday');
             }
             if (value.isSame(moment(), 'day')) {
-                return i18n.t('today');
+                return t('today');
             }
             if (value.isSame(moment().add(1, 'day'), 'day')) {
-                return i18n.t('tomorrow');
+                return t('tomorrow');
             }
         }
         var sameDate = this.get('sameDate');
@@ -56,10 +59,10 @@ module.exports = require('ember-text-field').extend({
     },
     
     validateInputValue: function(inputValue) {
-        if (!Em.isEmpty(inputValue) && this.get('sameDateString') != inputValue && !(this.get('relative') && [i18n.t('yesterday'), i18n.t('today'), i18n.t('tomorrow')].contains(inputValue))) {
+        if (!Em.isEmpty(inputValue) && this.get('sameDateString') != inputValue && !(this.get('relative') && [t('yesterday'), t('today'), t('tomorrow')].contains(inputValue))) {
             var value = Billy.util.parseDate(inputValue);
             if (!value) {
-                throw new UserError(i18n.t('invalid_date'));
+                throw new UserError(t('invalid_date'));
             }
         }
     },
