@@ -1,5 +1,5 @@
-var i18n = require('i18n').module('ember_date_field', require.resolve('../locales')),
-    t = i18n.t;
+var i18nContext = require('i18n-context')('ember_date_field', require.resolve('../locales')),
+    t = i18nContext.t;
 
 module.exports = require('ember-text-field').extend({
     autocomplete: 'off',
@@ -114,4 +114,9 @@ module.exports = require('ember-text-field').extend({
     }
 });
 
-module.exports.lang = i18n.lang;
+module.exports.locale = i18nContext.locale;
+
+module.exports.lang = function() {
+    console.warn('.lang() is deprecated. Use .locale() instead');
+    return i18nContext.locale.apply(null, arguments);
+};
