@@ -3,12 +3,14 @@ var i18nContext = require('i18n-context')('ember_date_field', require.resolve('.
 
 module.exports = require('ember-text-field').extend({
     autocomplete: 'off',
-    
-    sameDateString: function() { 
+
+    sameDateString: function() {
         return t('same_date');
     }.property(),
-    
+
     sameDate: null,
+
+    showSelectorOnDownArrow: true,
 
     relative: false,
 
@@ -16,7 +18,7 @@ module.exports = require('ember-text-field').extend({
         this._super();
         this.reformatInputValue(); //Trick to make sure that sameDate was set when formatting the inputValue
     },
-    
+
     picker1Icon: 'icons/calendar',
 
     manipulateValue: function(value) {
@@ -53,11 +55,11 @@ module.exports = require('ember-text-field').extend({
     sameDateDidChange: function() {
         this.reformatInputValue();
     }.observes('sameDate'),
-    
+
     unformatInputValue: function(inputValue) {
         return Ember.isEmpty(inputValue) ? null : Billy.util.parseDate(inputValue)
     },
-    
+
     validateInputValue: function(inputValue) {
         if (!Em.isEmpty(inputValue) && this.get('sameDateString') != inputValue && !(this.get('relative') && [t('yesterday'), t('today'), t('tomorrow')].contains(inputValue))) {
             var value = Billy.util.parseDate(inputValue);
@@ -68,7 +70,7 @@ module.exports = require('ember-text-field').extend({
     },
 
     selector: null,
-    
+
     didClickPicker1: function() {
         if (this.get('selector')) {
             this.hideSelector();
@@ -96,17 +98,17 @@ module.exports = require('ember-text-field').extend({
             selector.show(this);
         }
     },
-    
+
     hideSelector: function() {
         var selector = this.get('selector');
         if (selector) {
             selector.destroy();
         }
     },
-    
+
     keyDown: function(e) {
         if (!this.get('selector')) {
-            if (e.which == $.keyCode.DOWN) {
+            if (e.which == $.keyCode.DOWN && this.get('showSelectorOnDownArrow')) {
                 e.preventDefault();
                 this.showSelector();
             }
