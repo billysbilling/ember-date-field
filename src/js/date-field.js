@@ -89,7 +89,7 @@ module.exports = require('ember-text-field').extend({
             selector.set('value', this.get('value'));
             selector.set('keyEl', this.$());
             selector.one('select', function(date) {
-                self.set('value', date);
+                self.selectValue(date);
                 self.hideSelector();
             });
             selector.one('willDestroyElement', function() {
@@ -113,6 +113,14 @@ module.exports = require('ember-text-field').extend({
                 this.showSelector();
             }
         }
+    },
+
+    selectValue: function(value) {
+        var self = this;
+        this.set('value', value);
+        Em.run.next(function() {
+            self.sendAction('didSelect', value);
+        });
     }
 });
 
