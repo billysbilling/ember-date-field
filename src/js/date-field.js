@@ -116,10 +116,9 @@ module.exports = require('ember-text-field').extend({
     },
 
     selectValue: function(value) {
-        var self = this;
         this.set('value', value);
-        Em.run.next(function() {
-            self.sendAction('didSelect', value);
+        Ember.run.schedule('sync', this, function() {
+            this.sendAction('didSelect', value);
         });
     }
 });
