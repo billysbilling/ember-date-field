@@ -1,4 +1,5 @@
-var i18nContext = require('i18n-context')('ember_date_field', require.resolve('../locales')),
+var parseDate = require('i18n-parse-date'),
+    i18nContext = require('i18n-context')('ember_date_field', require.resolve('../locales')),
     t = i18nContext.t;
 
 module.exports = require('ember-text-field').extend({
@@ -57,12 +58,12 @@ module.exports = require('ember-text-field').extend({
     }.observes('sameDate'),
 
     unformatInputValue: function(inputValue) {
-        return Ember.isEmpty(inputValue) ? null : Billy.util.parseDate(inputValue)
+        return Ember.isEmpty(inputValue) ? null : parseDate(inputValue)
     },
 
     validateInputValue: function(inputValue) {
         if (!Em.isEmpty(inputValue) && this.get('sameDateString') != inputValue && !(this.get('relative') && [t('yesterday'), t('today'), t('tomorrow')].contains(inputValue))) {
-            var value = Billy.util.parseDate(inputValue);
+            var value = parseDate(inputValue);
             if (!value) {
                 throw new UserError(t('invalid_date'));
             }

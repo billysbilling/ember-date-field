@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "ember-text-field": "billysbilling/ember-text-field#>=1.0 <2.0",
-    "i18n-context": "billysbilling/i18n-context#>=1.0 <2.0"
+    "i18n-context": "billysbilling/i18n-context#>=1.0 <2.0",
+    "i18n-parse-date": "billysbilling/i18n-parse-date#>=1.0 <2.0"
   }
 }
