@@ -8,18 +8,6 @@ module.exports = require('ember-text-field').extend({
     min: null,
     max: null,
 
-    init: function() {
-        this._super();
-        var min = this.get('min'),
-            max = this.get('max');
-        if (min && typeof(min) !== 'number') {
-            this.set('min', Number(min));
-        }
-        if (max && typeof(max) !== 'number') {
-            this.set('max', Number(max));
-        }
-    },
-
     sameDateString: function() {
         return t('same_date');
     }.property(),
@@ -32,6 +20,16 @@ module.exports = require('ember-text-field').extend({
 
     init: function() {
         this._super();
+
+        var min = this.get('min'),
+            max = this.get('max');
+        if (min && typeof(min) !== 'number') {
+            this.set('min', Number(min));
+        }
+        if (max && typeof(max) !== 'number') {
+            this.set('max', Number(max));
+        }
+
         this.reformatInputValue(); //Trick to make sure that sameDate was set when formatting the inputValue
     },
 
