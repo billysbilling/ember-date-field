@@ -8,6 +8,8 @@ module.exports = require('ember-text-field').extend({
     min: null,
     max: null,
 
+    required: null,
+
     sameDateString: function() {
         return t('same_date');
     }.property(),
@@ -20,16 +22,6 @@ module.exports = require('ember-text-field').extend({
 
     init: function() {
         this._super();
-
-        var min = this.get('min'),
-            max = this.get('max');
-        if (min && typeof(min) !== 'number') {
-            this.set('min', Number(min));
-        }
-        if (max && typeof(max) !== 'number') {
-            this.set('max', Number(max));
-        }
-
         this.reformatInputValue(); //Trick to make sure that sameDate was set when formatting the inputValue
     },
 
@@ -85,11 +77,13 @@ module.exports = require('ember-text-field').extend({
             var min = this.get('min')
             var max = this.get('max')
             if (!Em.isEmpty(min) && value < min) {
-                throw new UserError(t('must_be_greater', { number: this.formatInputValue(min) }));
+                throw new Error(t('must_be_greater', { number: this.formatInputValue(min) }));
             }
             if (!Em.isEmpty(max) && value > max) {
-                throw new UserError(t('must_be_less', { number: this.formatInputValue(max) }));
+                throw new Error(t('must_be_less', { number: this.formatInputValue(max) }));
             }
+        } else if (Em.isEmpty(inputValue) && !!this.get('required')) {
+            throw new Error(t('is_required'));
         }
     },
 
