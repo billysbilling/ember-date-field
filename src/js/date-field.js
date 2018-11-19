@@ -5,6 +5,21 @@ var parseDate = require('i18n-parse-date'),
 module.exports = require('ember-text-field').extend({
     autocomplete: 'off',
 
+    min: null,
+    max: null,
+
+    init: function() {
+        this._super();
+        var min = this.get('min'),
+            max = this.get('max');
+        if (min && typeof(min) !== 'number') {
+            this.set('min', Number(min));
+        }
+        if (max && typeof(max) !== 'number') {
+            this.set('max', Number(max));
+        }
+    },
+
     sameDateString: function() {
         return t('same_date');
     }.property(),
@@ -66,6 +81,16 @@ module.exports = require('ember-text-field').extend({
             var value = parseDate(inputValue);
             if (!value) {
                 throw new UserError(t('invalid_date'));
+            }
+
+            // Range validation
+            var min = this.get('min')
+            var max = this.get('max')
+            if (!Em.isEmpty(min) && value < min) {
+                throw new UserError(t('must_be_greater', { number: this.formatInputValue(min) }));
+            }
+            if (!Em.isEmpty(max) && value > max) {
+                throw new UserError(t('must_be_less', { number: this.formatInputValue(max) }));
             }
         }
     },
